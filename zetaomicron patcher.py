@@ -22,22 +22,22 @@ def move_file(path, files, dest):
         try:
             shutil.copy(entry, dest)
         except:
-            print "error in moving " + entry + " to " + dest
+            print( "error in moving " + entry + " to " + dest)
 
 def print_move_info(source, files, dest):
-    print "\nCopying: "
+    print("\nCopying: ")
     text = "\t"
     for x in range(len(files)):
         text += files[x]
         if x != len(files) - 1:
             text += ", "
-    print text
-    print "From " + source + " to " + dest
+    print(text)
+    print("From " + source + " to " + dest)
 
 base_dir = os.getcwd()
-print "Put this file in a folder with the main Omicron/Zeta folder and the patch folder you want to use"
-patch_dir = os.path.join(base_dir, raw_input("Enter the patch folder name: ")) #Omicron 1.2.14
-main_dir = os.path.join(base_dir, raw_input("Enter the main game folder: ")) #Pokemon Omicron (Win)
+print("Put this file in a folder with the main Omicron/Zeta folder and the patch folder you want to use")
+patch_dir = os.path.join(base_dir, input("Enter the patch folder name: ")) #Omicron 1.2.14
+main_dir = os.path.join(base_dir, input("Enter the main game folder: ")) #Pokemon Omicron (Win)
 patch_folder_name = []
 for root, dirs, files in os.walk(patch_dir):
     for folder in dirs:
@@ -52,10 +52,9 @@ for entry in patch_folder_name:
     #move_file(entry_path, files, main_dest_path)
 
 rgssad = "Game.rgssad"
-print "\nCopying " + os.path.join(patch_dir, rgssad) + " to " + main_dir
+print("\nCopying " + os.path.join(patch_dir, rgssad) + " to " + main_dir)
 try:
     shutil.copy(os.path.join(patch_dir, rgssad), main_dir)
 except:
-    print "error in moving " + rgssad
-
-raw_input()
+    print("error in moving " + rgssad)
+input()
