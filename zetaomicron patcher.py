@@ -1,12 +1,6 @@
-#get input from user for path to patch folder, and omicron/zeta folder
-#read folder names
-#check if corresponding files in o/z folder already exist,
-    #if so os.rename() to delete
-#then os.rename files in patch folder to corresponding o/z folder
-#move game.radfgasdgsdg
-#tada
 import os
 import shutil
+import sys
 
 def replace_patch_name(patch_folder):
     patch_folder = patch_folder.replace("Copy into Graphics_", "")
@@ -36,8 +30,13 @@ def print_move_info(source, files, dest):
 
 base_dir = os.getcwd()
 print("Put this file in a folder with the main Omicron/Zeta folder and the patch folder you want to use")
-patch_dir = os.path.join(base_dir, input("Enter the patch folder name: ")) #Omicron 1.2.14
-main_dir = os.path.join(base_dir, input("Enter the main game folder: ")) #Pokemon Omicron (Win)
+if len(sys.argv) == 3:
+    patch_dir = sys.argv[1]
+    main_dir = sys.argv[2]
+else:
+    patch_dir = os.path.join(base_dir, input("Enter the patch folder name: ")) #Omicron 1.2.14
+    main_dir = os.path.join(base_dir, input("Enter the main game folder: ")) #Pokemon Omicron (Win)
+
 patch_folder_name = []
 for root, dirs, files in os.walk(patch_dir):
     for folder in dirs:
@@ -49,7 +48,7 @@ for entry in patch_folder_name:
     files = find_files(entry_path)
     main_dest_path = os.path.join(main_dir, "Graphics", replace_patch_name(entry))
     print_move_info(entry_path, files, main_dest_path)
-    #move_file(entry_path, files, main_dest_path)
+    move_file(entry_path, files, main_dest_path)
 
 rgssad = "Game.rgssad"
 print("\nCopying " + os.path.join(patch_dir, rgssad) + " to " + main_dir)
@@ -57,4 +56,6 @@ try:
     shutil.copy(os.path.join(patch_dir, rgssad), main_dir)
 except:
     print("error in moving " + rgssad)
-input()
+
+if len(sys.argv) != 3:
+    input()
