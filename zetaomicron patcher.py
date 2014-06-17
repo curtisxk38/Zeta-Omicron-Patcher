@@ -31,8 +31,8 @@ def print_move_info(source, files, dest):
 base_dir = os.getcwd()
 print("Put this file in a folder with the main Omicron/Zeta folder and the patch folder you want to use")
 if len(sys.argv) == 3:
-    patch_dir = sys.argv[1]
-    main_dir = sys.argv[2]
+    patch_dir = os.path.join(base_dir, sys.argv[1])
+    main_dir = os.path.join(base_dir, sys.argv[2])
 else:
     patch_dir = os.path.join(base_dir, input("Enter the patch folder name: ")) #Omicron 1.2.14
     main_dir = os.path.join(base_dir, input("Enter the main game folder: ")) #Pokemon Omicron (Win)
